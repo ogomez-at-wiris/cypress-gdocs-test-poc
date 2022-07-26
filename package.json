@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cypress open --e2e --browser electron"
+    "test": "cypress open --e2e --browser chrome"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^10.3.1"
+    "cypress": "^10.3.1",
+    "cypress-social-logins": "^1.14.0",
+    "puppeteer": "^15.5.0"
   }
 }
