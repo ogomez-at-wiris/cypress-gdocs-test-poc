@@ -7,6 +7,7 @@ const googleLogin = async (username, password) => {
     const browser = await Puppeteer.launch({
         headless: true,
     });
+
     console.log('launched browser')
 
     const page = await browser.newPage();
@@ -14,16 +15,24 @@ const googleLogin = async (username, password) => {
     await page.setUserAgent(USER_AGENT);
 
     await page.goto('https://docs.google.com');
-console.log('opened google docs page');
+
+    console.log('opened google docs page');
+
     await page.type('#identifierId', username);
     await page.click('#identifierNext');
+
     console.log('username confirmed');
+
     await page.waitForSelector('input[type="password"]', { visible: true });
+
     console.log('Setting password...');
+
     await page.type('input[type="password"]', password);
     await page.keyboard.press('Enter')
+
     await page.waitForNavigation();
     console.log('finish puppeteer process success');
+
     return null;
 }
 
