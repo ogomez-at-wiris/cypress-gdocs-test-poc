@@ -11,21 +11,15 @@ beforeEach(() => {
 });
 
 it('opens the google test document', () => {
-  const socialLoginOptions = {
-    username: Cypress.env['googleUser'],
-    password: Cypress.env['google_Password'],
-    loginUrl: 'https://docs.google.com',
-    headless: false,
-    logs: false,
-    isPopup: true,
-    // postLoginSelector: ".unread-count",
-  }
-
-  return cy
-    .task("GoogleSocialLogin", socialLoginOptions)
-    .then(({ cookies }) => {
+  cy.task("getGoogleCookie", {
+    username: Cypress.env()['googleUser'],
+    password: Cypress.env()['googlePassword'],
+  })
+    .then((result) => {
+      cy.log(`Result from task: ${result}`)
+      /*
       cy.clearCookies()
-
+  
       const cookie = cookies
         .pop()
       if (cookie) {
@@ -36,10 +30,11 @@ it('opens the google test document', () => {
           path: cookie.path,
           secure: cookie.secure,
         })
-
+  
         Cypress.Cookies.defaults({
           preserve: cookieName,
         })
       }
+      */
     })
 })
