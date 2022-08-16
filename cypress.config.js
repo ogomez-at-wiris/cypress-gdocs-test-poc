@@ -1,6 +1,6 @@
 const { defineConfig } = require("cypress");
 
-const { googleLogin } = require("./src/google_login_helper")
+const { getGoogleLoginCookies } = require("./src/google_login_helper")
 
 module.exports = defineConfig({
   "chromeWebSecurity": false,
@@ -9,10 +9,10 @@ module.exports = defineConfig({
     experimentalSessionAndOrigin: true,
     setupNodeEvents(on, config) {
       on("task", {
-        async getGoogleCookie({ username, password }) {
-          const loginResult = await googleLogin(username, password)
-          console.log('finish task');
-          return null;
+        async loginToGoogleDocs ({ username, password }) {
+          const loginData = await getGoogleLoginCookies(username, password)
+
+          return loginData;
         }
       })
     }

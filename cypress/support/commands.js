@@ -1,13 +1,22 @@
-import GoogleLoginPage from './pages/google_login';
+Cypress.Commands.add('loginToGoogleDocs', () => {
+    cy.session('googleDocsSession', () => {
+        cy.task("loginToGoogleDocs", {
+            username: Cypress.env()['googleUser'],
+            password: Cypress.env()['googlePassword'],
+        })
+            .then((cookies) => {
+                cy.clearCookies()
 
-const googleLoginPage = new GoogleLoginPage();
-
-Cypress.Commands.add('login', (username, password) => {
-    cy.session('gdocs_login', () => {
-        cy.visit('/');
-        cy.wait(1000)
-        googleLoginPage.getEmailAddressField().type(Cypress.env('googleUser'));
-        // googleLoginPage.getNextButton().click()
-        cy.wait(100000)  
+                const cookie = cookies
+                    .forEach((cookie) => {
+                        cy.setCookie(cookie.name, cookie.value, {
+                            domain: cookie.domain,
+                            expiry: cookie.expires,
+                            httpOnly: cookie.httpOnly,
+                            path: cookie.path,
+                            secure: cookie.secure,
+                        })
+                    })
+            });
     })
 })
