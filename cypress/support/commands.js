@@ -20,3 +20,8 @@ Cypress.Commands.add('loginToGoogleDocs', () => {
             });
     })
 })
+Cypress.Commands.add('openMathtypeAddon', () => {
+    cy.get('#docs-extensions-menu').click();
+    cy.get('.goog-menuitem-content').contains('MathType Beta').click();
+    cy.get('.goog-menuitem-content').contains('Open MathType').click();
+})
