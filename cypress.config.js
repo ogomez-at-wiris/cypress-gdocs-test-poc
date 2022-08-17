@@ -5,6 +5,7 @@ const { getGoogleLoginCookies } = require("./src/google_login_helper")
 module.exports = defineConfig({
   "chromeWebSecurity": false,
   "modifyObstructiveCode": false,
+  experimentalModifyObstructiveThirdPartyCode: true,
   e2e: {
     baseUrl: 'https://docs.google.com',
     experimentalSessionAndOrigin: true,
